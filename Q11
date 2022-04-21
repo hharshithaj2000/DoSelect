@@ -1,0 +1,69 @@
+package doselect;
+
+public class SalaryData {
+	String name;
+	int  daysInMonth;
+	double   salary;
+	SalaryData(String name,int  daysInMonth,double   salary){
+		this.name=name;
+		this.daysInMonth=daysInMonth;
+		this.salary=salary;
+	}
+}
+
+class Validatesal{
+    public String validSalaryData(SalaryData s) throws Exception{
+    	if(!(s.daysInMonth==30 || s.daysInMonth==31 || s.daysInMonth==28)){
+    		throw new InvalidDaysException("Invalid Days");
+    	}
+    	else if(s.salary<0 || s.salary>1000000){
+    		throw new InvalidSalaryException("Invalid Salary");
+    	}
+    	else{
+    		return "Valid Data";
+    	}
+    }
+ 
+
+    public double totalSalary(SalaryData s){
+    	try{
+    		validSalaryData(s);
+    		return s.daysInMonth*s.salary;
+    	}
+    	catch(Exception e){
+    		return 0;
+    	}
+    }
+}
+
+
+class InvalidDaysException extends Exception{
+	 public InvalidDaysException(String str){
+		 super(str);
+	 }
+ 
+}
+class InvalidSalaryException extends Exception{
+	public InvalidSalaryException(String str){
+		super(str);
+	}
+                                          
+}
+
+class SalaryDataMain{
+	public static void main(String[] args){
+		SalaryData s = new SalaryData("Steve",30,10000);
+		Validatesal val = new Validatesal();
+		String ans;
+		try {
+			ans = val.validSalaryData(s);
+			System.out.println(ans);
+		} 
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		double sal =  val.totalSalary(s);
+		System.out.println(sal);
+		
+	}
+}
