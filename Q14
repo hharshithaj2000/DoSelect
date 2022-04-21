@@ -1,0 +1,71 @@
+package doselect;
+
+public class Exceptions {
+	public String checkException(double n1, double n2, char op){
+		try{
+		if(op=='*' && (n1==0 || n2==0)){
+			throw new MultiplyByZeroException("Result will be zero since one of the numbers is zero");
+			}
+		}
+		catch(MultiplyByZeroException e){
+			return e.getMessage();
+		}
+		try{
+		if(op=='/' && n2==0){
+			throw new DivideByZeroException("Division by 0 results in infinity");
+			}
+		}
+		catch(DivideByZeroException e){
+			return e.getMessage();
+		}
+		try{
+			if(op!='+' && op!='-' && op!='*' && op!='/'){
+				throw new Exception(op+" is not a valid operator");
+			}
+		}
+		catch(Exception e){
+			return e.getMessage();
+		}
+		return "No exceptions found";
+		
+	}
+	
+	public double calculate(double v1, double v2, char op){
+		switch(op){
+		case '+':
+			return v1+v2;
+		case '-': 
+			return v1-v2;
+
+		case '*': 
+			return v1*v2;
+		case '/': 
+			return v1/v2;
+		default:
+			return 0;
+		}
+	}
+}
+
+class DivideByZeroException extends Exception{
+	DivideByZeroException(String str){
+		super(str);
+	}
+}
+
+class MultiplyByZeroException extends Exception{
+	MultiplyByZeroException(String str){
+		super(str);
+	}
+}
+
+class ExceptionMain{
+	public static void main(String[] args){
+		Exceptions e=new Exceptions();
+		String x=e.checkException(10, 5, '-');
+		System.out.println(x);
+		double y=e.calculate(10, 5, '-');
+		System.out.println(y);
+		
+	}
+}
