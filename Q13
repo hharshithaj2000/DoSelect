@@ -1,0 +1,60 @@
+package doselect;
+
+public class Activity {
+	String string1;
+    String string2;
+    String operator;
+    public Activity(String string1,String string2,String operator){
+    	this.string1=string1;
+    	this.string2=string2;
+    	this.operator=operator;
+    }
+
+}
+
+class SourceActivity{
+	public String handleException(Activity a){
+		try{
+			if(a.string1==null || a.string2==null){
+				throw new NullPointerException();
+			}
+		}
+		catch(NullPointerException e){
+			return "Null values found";
+		}
+		try{
+			if(!(a.operator=="+" || a.operator=="-" )){
+				throw new Exception(a.operator);
+			}
+		}
+			catch(Exception e){
+				return a.operator;
+			}
+		return "No exception found";
+	}
+	
+	public String operate(Activity a){
+		
+		switch(a.operator){
+		case "+":
+			return a.string1+a.string2;
+		case "-":
+			return a.string1.replace(a.string2, "");
+		default:
+			return "invalid operator "+a.operator;
+		}
+		
+	}
+}
+
+class ActivityMain{
+	public static void main(String[] args){
+		Activity a=new Activity("helloworld","world","-");
+		SourceActivity sa=new SourceActivity();
+		String x=sa.handleException(a);
+		System.out.println(x);
+		
+		String y=sa.operate(a);
+		System.out.println(y);
+	}
+}
