@@ -1,0 +1,85 @@
+package doselect;
+
+import java.util.*;
+
+public class Box {
+	private int id;
+    private int volume;
+    public Box(int id, int volume){
+    	this.id=id;
+    	this.volume=volume;
+    }
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getVolume() {
+		return volume;
+	}
+	public void setVolume(int volume) {
+		this.volume = volume;
+	}
+	public String toString(){
+		return "("+this.id+","+this.volume+")";
+	}
+
+}
+
+class ContainerBox{
+	public ArrayList<Box> boxes=new ArrayList<>();
+
+    public void addBox(Box box){
+    	boxes.add(box);
+    }
+
+    public String addWater(int id, int liter){
+    	for(int i=0;i<boxes.size();i++){
+    		if(boxes.get(i).getId()==id && boxes.get(i).getVolume()>=liter){
+    			boxes.get(i).setVolume(boxes.get(i).getVolume()-liter);
+    			return "Water filled";
+    		}
+    		else if(boxes.get(i).getId()==id && boxes.get(i).getVolume()<liter){
+    			return "Box full";
+    		}
+    	}
+    	return "No box found";
+    }
+
+    public ArrayList<Box> getBoxes(int volume, int comparator){
+    	ArrayList<Box> lst=new ArrayList<Box>();
+    	if(comparator==1){
+    		for(int j=0;j<boxes.size();j++){
+    			if(boxes.get(j).getVolume()<=volume){
+    				lst.add(boxes.get(j));
+    			}
+    		}
+    		return lst;
+    	}
+    	else if(comparator==2){
+    		for(int j=0;j<boxes.size();j++){
+    			if(boxes.get(j).getVolume()>volume){
+    				lst.add(boxes.get(j));
+    			}
+    		}
+    		return lst;
+    	}
+    	else{
+    		return null;
+    	}
+    }
+
+}
+
+class BoxMain{
+	public static void main(String[] args){
+		Box box = new Box(1,200);
+		ContainerBox containerBox = new ContainerBox();
+		containerBox.addBox(box);
+		String x=containerBox.addWater(1,100);
+		ArrayList<Box> b=containerBox.getBoxes(200,4);
+		System.out.println(x);
+		System.out.println(b);
+	}
+}
