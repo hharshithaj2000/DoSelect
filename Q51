@@ -1,0 +1,103 @@
+package doselect;
+
+public class User {
+	private String name;
+	private String city;
+	private String state;
+	private String pincode;
+	private String dob;
+	public User(String name, String city, String state, String pincode, String dob){
+		this.name=name;
+		this.city=city;
+		this.state=state;
+		this.pincode=pincode;
+		this.dob=dob;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getPincode() {
+		return pincode;
+	}
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
+	public String getDob() {
+		return dob;
+	}
+	public void setDob(String dob) {
+		this.dob = dob;
+	} 
+	
+}
+
+
+class EmployeeID{
+	public User user;
+    public EmployeeID(User user){
+    	this.user=user;
+    }
+    public String generateId(){
+    	boolean x=pincodeValidator();
+    	boolean y=dobValidator();
+    	if(x==false){
+    		return "NA";
+    	}
+    	else if(x==true && y==true){
+    		String pas1;
+    		pas1=user.getName().substring(0, 3)+user.getCity().substring(0, 1)+user.getState().substring(0,1)+user.getDob().substring(0,2);
+    		return pas1;
+    	}
+    	else {
+    		String pas2;
+    		pas2=user.getName().substring(0,3)+user.getCity().substring(0,1)+user.getState().substring(0,1);
+    		return pas2;
+    	}
+    }
+
+    public boolean pincodeValidator(){
+    	String reg="[0-9]*";
+    	if(user.getPincode().length()==6 && user.getPincode().matches(reg)){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+
+    public boolean dobValidator(){
+    	String reg1="[0-9][0-9][/][0-9][0-9][/][0-9][0-9][0-9][0-9]";
+    	if(user.getDob().matches(reg1)){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+
+}
+
+class UserMain{
+	public static void main(String[] args){
+		User user = new User("doselect","d","delhi","400001","22/04/2002");
+		EmployeeID employeeID = new EmployeeID(user);
+		String str=employeeID.generateId();
+		System.out.println(str);
+
+	}
+}
