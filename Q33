@@ -1,0 +1,83 @@
+package doselect;
+
+import java.time.*;
+import java.util.*;
+
+
+public class Person33 implements Comparable<Person33>{
+	private Integer id;
+    private String name;
+    private LocalDate birthDate;
+    public Person33(Integer id, String name, LocalDate birthDate){
+    	this.id=id;
+    	this.name=name;
+    	this.birthDate=birthDate;
+    }
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+    public String toString(){
+    	return "Person{id='"+getId()+"'"+" name="+getName()+"'"+" birthdate="+getBirthDate()+"}";
+    }
+    @Override
+	public int compareTo(Person33 obj) {
+		return this.getBirthDate().getYear()-obj.getBirthDate().getYear();
+	}
+    
+}
+
+
+class ImplementationPerson{
+	 
+	  public List<Person33> filterListByBirth(List<Person33> persons){
+		  	List<Person33> lst=new ArrayList<Person33>();
+		  	lst.addAll(persons);
+		  	Collections.sort(lst);
+		  	return lst;
+	  }
+
+	 
+	  public List<Person33> limitSkipAndReturn(List<Person33> persons, int pageNumber, int pageSize){
+		  	List<Person33> lst1=new ArrayList<Person33>();
+		  	int mul=pageNumber*pageSize;
+		  	for(int i=mul;i<mul+pageSize;i++){
+		  		lst1.add(persons.get(i));
+		  	}
+		  	return lst1;
+	  }
+
+}
+
+class Person33Main{
+	public static void main(String[] args){
+		Person33 p1 = new Person33(1, "Mito", LocalDate.of(1991, 1, 21));
+		Person33 p2 = new Person33(2, "Code", LocalDate.of(1990, 2, 21));
+		Person33 p3 = new Person33(3, "Jaime", LocalDate.of(1980, 6, 23));
+		Person33 p4 = new Person33(4, "Duke", LocalDate.of(2019, 5, 15));
+		Person33 p5 = new Person33(5, "James", LocalDate.of(2010, 1, 4));
+	
+		ImplementationPerson imp=new ImplementationPerson();
+		
+		List<Person33> persons = Arrays.asList(p1, p2, p3, p4, p5);
+		List<Person33> l1=imp.filterListByBirth(persons);
+		List<Person33> l2=imp.limitSkipAndReturn(persons, 1, 2);
+		System.out.println(l1);
+		System.out.println(l2);
+
+	}
+}
