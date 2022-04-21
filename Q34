@@ -1,0 +1,73 @@
+package doselect;
+
+public class Bomb {
+	int time;
+    String color;
+    public Bomb(int time, String color){
+    	this.time=time;
+    	this.color=color;
+    }
+}
+
+class Suicide{
+	Bomb bomb;
+	public Suicide(Bomb bb){
+		this.bomb=bb;
+	}
+	public String diffuseIt(int time, String color) throws Exception{
+		if(time>this.bomb.time){
+			throw new SuicideException("Time exceeded");
+		}
+		else if(!color.equals(this.bomb.color)){
+			throw new SuicideException("Wrong color");
+		}
+		else{
+			return "Hope is there";
+		}
+	}   
+     
+
+	public String checkSafety(int time, String color) throws Exception{
+		try{
+			diffuseIt(time,color);
+		}
+		catch(SuicideException e){
+			return "Bomb Exploded";
+		}
+		catch(Exception e){
+			return "Bomb Exploded";
+		}
+		return "Take a bow";
+	}
+  
+
+}
+
+class SuicideException extends Exception{
+	public SuicideException(String msg){
+		super(msg);
+	}
+}
+
+class BombMain{
+	public static void main(String[] args){
+		Bomb b=new Bomb(10,"red");
+		Suicide sc=new Suicide(b);
+		String s;
+		try {
+			s = sc.diffuseIt(5,"red");
+			System.out.println(s.toLowerCase());
+			
+		} 
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		String t;
+		try {
+			t = sc.checkSafety(8,"blue");
+			System.out.println(t.toLowerCase());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+}
