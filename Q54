@@ -1,0 +1,61 @@
+package doselect;
+
+import java.util.*;
+
+public class Kingdom {
+	public String life;
+	public String nonLife;
+	public int lifeSpan;
+	public Kingdom(String life, String nonLife, int lifeSpan){
+		this.life=life;
+		this.nonLife=nonLife;
+		this.lifeSpan=lifeSpan;
+	}
+	public String getLife() {
+		return life;
+	}
+	public String getNonLife() {
+		return nonLife;
+	}
+	public int getLifeSpan() {
+		return lifeSpan;
+	}
+	public String toString(){
+		return "Kingdom{life='"+this.life+"', nonlife='"+this.nonLife+"', lifespan="+this.lifeSpan+"}";
+	}
+}
+class KingdomClassification{
+
+	   public List<String> getKingdom(List<Kingdom> list){
+		   List<String> l=new ArrayList<String>();
+		   for(int i=0;i<list.size();i++){
+			   l.add(list.get(i).getLife());
+		   }
+		   return l;
+	   }
+
+
+	   public Kingdom findNameWithValidity(List<Kingdom> list, String name, int lifeSpan){
+		  for(int j=0;j<list.size();j++){
+			  if(list.get(j).getNonLife()==name && list.get(j).getLifeSpan()==lifeSpan){
+				  return list.get(j);
+			  }
+		  }
+		  return null;
+	  }
+
+}
+
+class KingdomMain{
+	public static void main(String[] args){
+		KingdomClassification k = new KingdomClassification();
+		List<Kingdom> list = new ArrayList<Kingdom>();
+		list.add(new Kingdom("Protista", "Regnum", 3));
+		list.add(new Kingdom("Plantae", "Lapideum", 5));
+		List<String> lst=k.getKingdom(list);
+		Kingdom king=k.findNameWithValidity(list, "Lapideum", 5);
+		System.out.println(lst);
+		System.out.println(king);
+	}
+	
+}
