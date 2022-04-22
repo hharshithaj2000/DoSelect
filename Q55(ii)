@@ -1,0 +1,55 @@
+package doselect;
+
+import java.util.*;
+
+public class Student55 {
+	public String name;
+	private int score;
+	public Student55(String name, int score){
+		this.name=name;
+		this.score=score;
+	}
+	public int getScore() {
+		return score;
+	}
+	public String toString(){
+		return "Student{name='"+this.name+"', score="+getScore()+"}";
+	}
+	
+}
+class ReportCard{
+	   public List<String> mapStudentName(List<Student55> list){
+		   List<String> l=new ArrayList<>();
+		   for(int i=0;i<list.size();i++){
+			   l.add(list.get(i).name);
+		   }
+		   return l;
+	   }
+
+
+	   public List<Student55> scoreQuery(List<Student55> list){
+		   List<Student55> lst=new ArrayList<>();
+		   for(int j=0;j<list.size();j++){
+			   if(list.get(j).getScore()>40 && list.get(j).getScore()>40){
+				   lst.add(list.get(j));
+			   }
+		   }
+		   return lst;
+	   }
+
+}
+
+class Student55Main{
+	public static void main(String[] args){
+		ReportCard r = new ReportCard();
+		List<Student55> list = new ArrayList<Student55>();
+		list.add(new Student55("Sarah", 70));
+		list.add(new Student55("John", 99));
+		list.add(new Student55("Jenny", 39));
+		list.add(new Student55("Harry", 22));
+		List<String> l1=r.mapStudentName(list);
+		List<Student55> l2=r.scoreQuery(list);
+		System.out.println(l1);
+		System.out.println(l2);
+	}
+}
