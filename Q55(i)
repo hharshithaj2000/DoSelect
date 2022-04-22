@@ -1,0 +1,67 @@
+package doselect;
+
+import java.util.*;
+
+public class Fish {
+	public String species;
+	public int weight;
+	public Fish(String species, int weight){
+		this.species=species;
+		this.weight=weight;
+	}
+	public String getSpecies() {
+		return species;
+	}
+	public int getWeight() {
+		return weight;
+	}
+	
+	public String toString(){
+		return "Fish{species='"+getSpecies()+"'"+" weight="+getWeight()+"}";
+	}
+	
+}
+
+class FishClass{
+
+		public List<Fish> getFishWithLowestWeight(List<Fish> list){
+			List<Fish> f=new ArrayList<>();
+			int min=list.get(0).weight;
+			for(int i=1;i<list.size();i++){
+				if(list.get(i).weight<min){
+					min=list.get(i).weight;
+				}
+			}
+			for(int j=0;j<list.size();j++){
+				if(list.get(j).weight==min){
+					f.add(list.get(j));
+				}
+			}
+			return f;
+		}
+
+
+		public List<Integer>  mapFishWeight(List<Fish> list){
+			List<Integer> lst=new ArrayList<>();
+			for(int i=0;i<list.size();i++){
+				lst.add(list.get(i).weight);
+			}
+			return lst;
+		}
+}
+
+class FishMain{
+	public static void main(String[] args){
+		FishClass f = new FishClass();
+        List<Fish> list = new ArrayList<Fish>();
+        list.add(new Fish("BlobFish", 20));
+        list.add(new Fish("Guppy", 15));
+        list.add(new Fish("Oscar", 60));
+        list.add(new Fish("GoldFish", 5));
+        List<Fish> l1=f.getFishWithLowestWeight(list);
+        List<Integer> l2=f.mapFishWeight(list);
+        System.out.println(l1);
+        System.out.println(l2);
+
+	}
+}
